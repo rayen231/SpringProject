@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.com">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous">
+	<title>Dbarat Lyoum - Edit Recipe</title>
+	<style>
+		body {
+			background: url('images/chef.avif') no-repeat center center fixed;
+			background-size: cover;
+			color: #fff;
+		}
+		.form-container {
+			background-color: rgba(0, 0, 0, 0.7);
+			padding: 30px;
+			border-radius: 8px;
+		}
+	</style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<div class="container">
+		<a class="navbar-brand" href="#">Dbarat Lyoum</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item">
+					<a class="nav-link active" href="/home">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/available_recipes">Available Recipes</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/My_Recipes">My Recipes</a>
+				</li>
+			</ul>
+			<a class="btn btn-outline-light" href="recipe_register">New Recipe Register</a>
+			<div class="dropdown">
+				<button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+					User
+				</button>
+				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+					<li><a class="dropdown-item" href="#">Profile</a></li>
+					<li><a class="dropdown-item" href="#">Settings</a></li>
+					<li><hr class="dropdown-divider"></li>
+					<li><a class="dropdown-item" href="/logout">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<div class="container my-5 col-md-8 col-lg-6 mx-auto form-container">
+	<h4 class="text-center mb-4">Edit Recipe Here</h4>
+	<form th:action="@{/save_recipe}" method="post" th:object="${recipe}">
+		<input type="hidden" name="id" th:value="${recipe.id}" />
+
+		<div class="mb-3">
+			<label for="name" class="form-label">Name</label>
+			<input type="text" class="form-control" id="name" name="name" th:value="${recipe.name}" required>
+		</div>
+
+		<div class="mb-3">
+			<label for="description" class="form-label">Description</label>
+			<textarea class="form-control" id="description" name="description" th:value="${recipe.description}" required></textarea>
+		</div>
+
+		<div class="mb-3">
+			<label for="image" class="form-label">Image URL</label>
+			<input type="text" class="form-control" id="image" name="image" th:value="${recipe.image}" required>
+		</div>
+
+		<div class="mb-3">
+			<label for="link" class="form-label">Recipe Link</label>
+			<input type="text" class="form-control" id="link" name="link" th:value="${recipe.link}" required>
+		</div>
+
+		<div class="text-center">
+			<button type="submit" class="btn btn-primary px-4">Submit</button>
+		</div>
+	</form>
+</div>
+
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

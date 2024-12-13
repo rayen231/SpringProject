@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.com">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Recipe Book</title>
+  <style>
+    body {
+      background: url('images/chef.avif') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+    .navbar {
+      background: rgba(0, 0, 0, 0.8) !important;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+    .card img {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      padding: 20px;
+    }
+    .card-body {
+      color: black;
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Dbarat Lyoum</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/available_recipes">Available Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/My_Recipes">My Recipes</a>
+        </li>
+      </ul>
+      <a class="btn btn-outline-light" href="recipe_register">New Recipe Register</a>
+      <div class="dropdown">
+        <button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          User
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Recipe Cards -->
+<div class="container my-5">
+  <h2 class="text-center mb-4">Available Recipes</h2>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" th:each="recipe : ${recipes}">
+      <div class="card h-100">
+        <img th:src="${recipe.image}" class="card-img-top" alt="Recipe Image">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${recipe.name}"></h5>
+          <p class="card-text" th:text="${recipe.description}"></p>
+        </div>
+        <div class="card-footer text-center">
+          <a th:href="${recipe.link}" class="btn btn-primary" target="_blank">View Recipe</a>
+          <a th:href="@{/edit_recipe/{id}(id=${recipe.id})}" class="btn btn-secondary">Edit</a>
+          <a th:href="@{/delete_recipe/{id}(id=${recipe.id})}" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
